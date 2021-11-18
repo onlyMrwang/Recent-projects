@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="196px" height="33px" viewBox="0 0 196 33" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>矩形备份 28</title>
+    <defs>
+        <linearGradient x1="0%" y1="50%" x2="100%" y2="50%" id="linearGradient-1">
+            <stop stop-color="#00BBBE" stop-opacity="0.316870629" offset="0%"></stop>
+            <stop stop-color="#06C2BF" offset="100%"></stop>
+        </linearGradient>
+        <polygon id="path-2" points="0.258118976 0.00878164127 33.683885 0 37.5327582 2.12181961 195.740481 2.12181961 195.727105 8.0161132 195.598061 24.1430349 195.535121 32.0087816 0.00206320158 32.0087816 0.0660351947 24.0140243 0.190979767 8.39935476"></polygon>
+        <filter x="-1.5%" y="-9.4%" width="103.1%" height="118.7%" filterUnits="objectBoundingBox" id="filter-3">
+            <feGaussianBlur stdDeviation="3" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="0" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.250980392   0 0 0 0 0.864960407   0 0 0 0 1  0 0 0 1 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="定稿" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="矩形备份-28">
+            <use fill-opacity="0.3" fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-2"></use>
+            <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
+        </g>
+    </g>
+</svg>

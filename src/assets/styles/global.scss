@@ -1,0 +1,50 @@
+// base color
+$topMenuBg: #018196; // 顶部导航栏
+$siderMenuBg: #128093; // 侧边导航栏
+$siderMenuItem: #1992A6; // 侧标菜单子菜单背景色
+$topMenuActiveColor: #128093; // 顶部菜单选中颜色
+$btnMainColor: #41B8C3; // 按钮颜色
+$btnHoverColor: #379FA9; // 按钮hover颜色
+$btnSelectedColor: #2E8B94; // 按钮selected颜色
+$btnBorderColor: #C4C6CF; // 按钮边框色
+$btnColor: #333333; // 按钮颜色
+$pageBgColor: #EDF3F4; // 页面背景色
+$gapBgColor: #F0F6F6; // 间隔背景色 
+$mainTitleColor: #222222; // 正文标题色 
+$mainTextColor: #484848; // 正文文本
+$assistTextColor: #666666; // 少量辅助文本
+$littleAssistColor: #999999; // 少量辅助色
+$tableBorderColor: #dedede; // 表格边框色
+$tableHeaderBg: #F2F6F7; // 表格表头背景色
+$hoverColor: #F1FCFE; // 鼠标经过颜色
+$fontSize14: 14px; // 字体大小14px
+$fontSize16: 16px; // 字体大小16px
+$headerHeight: 55px; // header高度
+$siderWidth: 208px; // sider宽度
+$collpseSiderWidth: 56px; // sider收缩宽度
+
+:export {
+  topMenuBg: $topMenuBg;
+  siderMenuBg: $siderMenuBg;
+  siderMenuItem: $siderMenuItem;
+  collpseSiderWidth: $collpseSiderWidth;
+  topMenuActiveColor: $topMenuActiveColor;
+  btnMainColor: $btnMainColor;
+  btnHoverColor: $btnHoverColor;
+  btnColor: $btnColor;
+  btnSelectedColor: $btnSelectedColor;
+  btnBorderColor: $btnBorderColor;
+  pageBgColor: $pageBgColor;
+  gapBgColor: $gapBgColor;
+  mainTextColor: $mainTextColor;
+  mainTitleColor: $mainTitleColor;
+  assistTextColor: $assistTextColor;
+  littleAssistColor: $littleAssistColor;
+  tableBorderColor: $tableBorderColor;
+  tableHeaderBg: $tableHeaderBg;
+  hoverColor: $hoverColor;
+  headerHeight: $headerHeight;
+  siderWidth: $siderWidth;
+  fontSize14: $fontSize14;
+  fontSize16: $fontSize16;
+}

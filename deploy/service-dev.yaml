@@ -1,0 +1,47 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: air-web-service
+  namespace: airport-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: air-web-service
+  template:
+    metadata:
+      labels:
+        app: air-web-service
+    spec:
+      containers:
+      - name: nginx-microservice
+        image: harbor.potevio.com:8443/plane/air-web-service:dev
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: 1000Mi
+            cpu: 500m
+          limits:
+            memory: 1500Mi
+            cpu: 1
+      restartPolicy: Always
+      imagePullSecrets:
+      - name: harborsecret
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: air-web-service
+  namespace: airport-dev
+spec:
+  ports:
+  - name: http
+    targetPort: 30080
+    port: 30080
+    nodePort: 30080
+  selector:
+    app: air-web-service
+  type: NodePort
+

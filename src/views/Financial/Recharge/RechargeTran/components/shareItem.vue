@@ -1,0 +1,466 @@
+<template>
+  <div class="shareBox">
+    <div class="add">
+      <el-button type="primary" @click="toReCharge">充值</el-button>
+    </div>
+    <div class="tabs">
+      <div class="tabList">
+        <div
+          v-for="item in tabList"
+          :key="item.id"
+          :class="
+            item.value === accRechargeTab
+              ? 'activeItem'
+              : 'item'
+          "
+          @click="handleClick(item)"
+        >
+          {{ item.name }}
+        </div>
+      </div>
+      <div class="line"></div>
+    </div>
+    <div class="tables">
+      <!-- 车辆 -->
+      <div v-show="accRechargeTab === 'car'" class="carTable">
+        <el-table :data="carList" style="width: 100%"
+          :header-cell-style="tableHeaderStyle" border
+        >
+          <el-table-column
+            prop="cardId"
+            label="车辆账号"
+            align="center"
+            show-overflow-tooltip
+          ></el-table-column>
+          <el-table-column
+            prop="carNumber"
+            label="车牌号"
+            align="center"
+            show-overflow-tooltip
+          ></el-table-column>
+          <el-table-column
+            prop="carVin"
+            label="车辆vin码"
+            align="center"
+            show-overflow-tooltip
+          ></el-table-column>
+          <el-table-column
+            prop="carModel"
+            label="车辆型号"
+            align="center"
+            show-overflow-tooltip
+          ></el-table-column>
+          <el-table-column
+            prop="carType"
+            label="能源类型"
+            align="center"
+            show-overflow-tooltip
+          >
+            <template slot-scope="scope">
+              {{scope.row.carType ? dictInfo.carTypeObj[scope.row.carType] : null }}
+            </template>
+          </el-table-column>
+        </el-table>
+        <div class="pagination" v-if="carTotal > 0">
+          <el-pagination
+            background
+            @size-change="handleCarSizeChange"
+            @current-change="handleCarCurrentChange"
+            :current-page="seaCarConf.pageNo"
+            :page-sizes="[10, 20, 50, 100]"
+            :page-size="seaCarConf.pageSize"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="carTotal">
+          </el-pagination>
+        </div>
+      </div>
+      <!-- 人员 -->
+      <div v-show="accRechargeTab === 'person'" class="personTable">
+        <el-table :data="personList" style="width: 100%"
+         :header-cell-style="tableHeaderStyle" border>
+          <el-table-column
+            prop="cardId"
+            label="司机账号"
+            align="center"
+            show-overflow-tooltip
+          ></el-table-column>
+          <el-table-column
+            prop="workName"
+            label="用户名"
+            align="center"
+            show-overflow-tooltip
+          ></el-table-column>
+          <el-table-column
+            prop="staffCode"
+            label="工作编号"
+            align="center"
+            show-overflow-tooltip
+          ></el-table-column>
+        </el-table>
+         <div class="pagination" v-if="personTotal > 0">
+          <el-pagination
+            background
+            @size-change="handlePersonSizeChange"
+            @current-change="handlePersonCurrentChange"
+            :current-page="seaPersonConf.pageNo"
+            :page-sizes="[10, 20, 50, 100]"
+            :page-size="seaPersonConf.pageSize"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="personTotal">
+          </el-pagination>
+        </div>
+      </div>
+      <!-- 实体卡 -->
+      <div v-show="accRechargeTab === 'card'" class="cardTable">
+        <el-table :data="cardList" style="width: 100%"
+         :header-cell-style="tableHeaderStyle" border>
+          <el-table-column
+            prop="cardCode"
+            label="卡号"
+            align="center"
+            show-overflow-tooltip
+          ></el-table-column>
+          <el-table-column
+            prop="carNumber"
+            label="车牌号"
+            align="center"
+            show-overflow-tooltip
+          ></el-table-column>
+        </el-table>
+        <div class="pagination" v-if="cardTotal > 0">
+          <el-pagination
+            background
+            @size-change="handleCardSizeChange"
+            @current-change="handleCardCurrentChange"
+            :current-page="seaCardConf.pageNo"
+            :page-sizes="[10, 20, 50, 100]"
+            :page-size="seaCardConf.pageSize"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="cardTotal">
+          </el-pagination>
+        </div>
+      </div>
+    </div>
+
+    <!-- 充值弹窗 -->
+    <div v-if="showRecharge">
+      <el-dialog
+        v-dialogDrag
+        title="充值金额"
+        :visible.sync="showRecharge"
+        width="30%"
+        :destroy-on-close="true"
+        :close-on-click-modal="false"
+        :before-close="closeDialog">
+          <div class="addBox">
+            <div class="addItem">
+              <div class="label">充值金额</div>
+              <div class="value">
+                <el-input-number :controls="false" v-model.trim="reChargeNum" placeholder="请输入充值金额"/>
+              </div>
+            </div>
+          </div>
+          <span slot="footer">
+          <el-button type="primary" @click="submitRecharge" :loading="showLoading">确 定</el-button>
+          <el-button type="primary" plain @click="closeDialog">取消</el-button>
+        </span>
+        </el-dialog>
+      </div>
+  </div>
+</template>
+
+<script>
+import { getAccCardList, getAccPersonList, getAccCarList, reChargeMoney } from '@/api/financial/account'
+import { mapGetters } from "vuex";
+export default {
+  props: {
+    accId: {
+      type: String,
+      default: null
+    },
+    totalMoney: {
+      type: Number,
+      default: 0
+    },
+    orgId: {
+      type: String,
+      default: null
+    },
+    accInfo: {
+      type: Object,
+      default: function() {
+        return null
+      }
+    },
+    searchConf: {
+      type: Object,
+      default: function() {
+        return {}
+      }
+    }
+  },
+  data() {
+    return {
+      showRecharge: false,
+      showLoading: false,
+      seaCarConf: {
+          pageNo: 1,
+          pageSize: 10,
+          isPage: 'yes',
+      },
+      seaPersonConf: {
+          pageNo: 1,
+          pageSize: 10,
+          isPage: 'yes',
+      },
+      seaCardConf: {
+          pageNo: 1,
+          pageSize: 10,
+          states: 1,
+          isPage: 'yes',
+      },
+      tabList: [
+        { id: 1, name: "车辆", value: "car" },
+        { id: 2, name: "人员", value: "person" },
+        { id: 3, name: "实体卡", value: "card" },
+      ],
+      carList: [],
+      personList: [],
+      cardList: [],
+      carTotal: 0,
+      personTotal: 0,
+      cardTotal: 0,
+      reChargeNum: undefined, // 充值金额
+    }
+  },
+  computed: {
+    ...mapGetters(['deptList', 'accRechargeTab', 'dictInfo'])
+  },
+  created() {
+    if(this.accId) {
+       if(this.accRechargeTab === 'car') {
+        this.fetchCars()
+       }else if(this.accRechargeTab === 'person') {
+        this.fetchPersons()
+       }else {
+        this.fetchCards()
+       }
+    }
+  },
+  beforeDestroy() {
+    this.$store.commit('account/changeAccRechargeTab', 'car')
+  },
+  methods: {
+    async fetchCars() {
+      this.seaCarConf.accId = this.accId
+      this.seaCarConf = Object.assign(this.seaCarConf, this.searchConf)
+      const rsp = await getAccCarList(this.seaCarConf)
+      if(rsp.code === 200) {
+        this.carList = rsp.data.list
+        this.carTotal = rsp.data.total
+      }
+    },
+     async fetchPersons() {
+      this.seaPersonConf.accId = this.accId
+      this.seaPersonConf = Object.assign(this.seaPersonConf, this.searchConf)
+      const rsp = await getAccPersonList(this.seaPersonConf)
+      if(rsp.code === 200) {
+        this.personList = rsp.data.list
+        this.personTotal = rsp.data.total
+      }
+    },
+    async fetchCards() {
+      this.seaCardConf.accId = this.accId
+      this.seaCardConf = Object.assign(this.seaCardConf, this.searchConf)
+      const rsp = await getAccCardList(this.seaCardConf)
+      if(rsp.code === 200) {
+        this.cardList = rsp.data.list
+        this.cardTotal = rsp.data.total
+      }
+    },
+    handleClick(item) {
+      this.$store.commit("account/changeAccRechargeTab", item.value);
+      if(item.value === 'car') {
+        this.fetchCars()
+      }else if(item.value === 'card') {
+        this.fetchCards()
+      }else {
+        this.fetchPersons()
+      }
+    },
+    handleCarCurrentChange(page) {
+      this.seaCarConf.pageNo = page
+      this.fetchCars()
+    },
+    handleCarSizeChange(pageSize) {
+      this.searchCarConf.pageNo = 1
+      this.seaCarConf.pageSize = pageSize
+      this.fetchCars()
+    },
+    handlePersonCurrentChange(page) {
+      this.seaPersonConf.pageNo = page
+      this.fetchPersons()
+    },
+    handlePersonSizeChange(pageSize) {
+      this.seaPersonConf.pageNo = 1
+      this.seaPersonConf.pageSize = pageSize
+      this.fetchPersons()
+    },
+    handleCardCurrentChange(page) {
+      this.seaCardConf.pageNo = page
+      this.fetchCards()
+    },
+    handleCardSizeChange(pageSize) {
+      this.seaCardConf.pageNo = 1
+      this.seaCardConf.pageSize = pageSize
+      this.fetchCards()
+    },
+   toReCharge() {
+      this.showRecharge = true
+    },
+    closeDialog() {
+      this.showRecharge = false
+      this.reChargeNum = undefined
+    },
+   async submitRecharge() {
+      if(!this.reChargeNum) {
+        this.$message({
+          type: 'warning',
+          message: '请输入充值金额'
+        })
+      }else if(this.reChargeNum >= 10000000){
+         this.$message({
+          type: 'warning',
+          message: '充值金额不能大于9999999'
+        })
+      }else if(this.reChargeNum <= -10000000) {
+         this.$message({
+          type: 'warning',
+          message: '充值金额不能小于-9999999'
+        })
+      }else{
+        const data = [
+          {
+            accType: 0,
+            arriveMoney: this.reChargeNum,
+            arriveBefore: this.totalMoney,
+            orgId: this.orgId,
+            cardType: 5,
+            objId: this.orgId,
+            orgName: this.accInfo.orgName
+          }
+        ]
+      this.showLoading = true
+      const rsp = await reChargeMoney(data)
+      if(rsp.code === 200) {
+          this.$message({
+            type: 'success',
+            message: '充值成功'
+          })
+          this.$emit('fetchAccInfo')
+          this.closeDialog()
+       }
+       this.showLoading = false
+      }
+    }
+  }
+}
+</script>
+<style lang="scss">
+.el-input-number.is-without-controls .el-input__inner {
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: left;
+}
+</style>
+<style lang="scss" scoped>
+@import '@/assets/styles/global';
+.shareBox {
+  position: relative;
+  margin-top: 30px;
+  .add {
+    position: absolute;
+    right: 10px;
+    top: -40px;
+  }
+  .tabs {
+    display: flex;
+    .tabList {
+      display: flex;
+      align-items: center;
+      margin: -40px 0 10px 10px;
+      .item {
+        padding: 10px 30px;
+        font-size: 14px;
+        color: #666666;
+        cursor: pointer;
+        border-bottom: 1px solid $tableBorderColor;
+      }
+      .activeItem {
+        padding: 10px 30px;
+        font-size: 14px;
+        cursor: pointer;
+        color: $btnMainColor;
+        border-bottom: 2px solid $btnMainColor;
+      }
+    }
+    .line {
+      height: 0.5px;
+      flex: 1;
+      margin-right: 10px;
+      background-color: $tableBorderColor;
+      margin-top: 0.5px;
+    }
+  }
+  .tables {
+    padding: 0 10px;
+    .pagination {
+      margin: 10px 0;
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+  .settingAddBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .addItem {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      .label {
+        color: #666;
+        margin-right: 10px;
+        // &::before {
+        //   content: '*';
+        //   color: red;
+        // }
+      }
+      .value {
+          flex: 1;
+          .cardDuan {
+            display: flex;
+            align-items: center;
+            .gap {
+                margin: 0 15px;
+            }
+          }
+      }
+    }
+  }
+    .addBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .addItem {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      .label {
+        color: #666;
+        margin-right: 10px;
+      }
+    }
+  }
+}
+</style>

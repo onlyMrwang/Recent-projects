@@ -1,0 +1,277 @@
+@import "./global.scss";
+
+
+// 时间选择器样式
+.el-time-panel{
+  width: 9.375rem;
+}
+// 按钮样式
+.el-button {
+  border-radius: 2px;
+  padding: 8px 16px;
+  font-size: $fontSize14;
+}
+
+.el-tree--highlight-current .el-tree-node.is-current>.el-tree-node__content {
+  background-color: #f0f7ff;
+  color: $btnMainColor;
+}
+
+.el-form-item__label {
+  font-size: 13px;
+}
+.el-link {
+  font-size: 13px;
+}
+
+.el-button {
+  font-size: 13px;
+}
+
+// dialog 样式
+.el-dialog__header {
+  background: #018196;
+  color: #fff;
+  padding: 14px 20px;
+  .el-dialog__title {
+    font-size: 16px;
+    color: #ffffff;
+  }
+  .el-dialog__headerbtn {
+    top: 13px;
+    right: 17px;
+  }
+  .el-dialog__headerbtn .el-dialog__close {
+    color: #fff;
+    font-size: 26px;
+  }
+}
+.el-dialog__body{
+  padding: 20px 20px;
+  background-color: #f5f5f5;
+}
+
+// input 样式
+// 选择框全局样式
+.el-input__inner:focus,
+.el-select .el-input.is-focus .el-input__inner {
+  border: 1px solid #30f1fd;
+  box-shadow: inset 1px -2px 4px 0px rgba(30, 160, 253, 0.39);
+  box-shadow: inset 0px 0px 4px 0px rgba(30, 160, 253, 0.38);
+  border-radius: 2px;
+}
+.el-input__inner {
+  height: 32px;
+  background: #ffffff;
+  border: 1px solid $littleAssistColor;
+  border-radius: 2px;
+  &:hover {
+    background: #ffffff;
+    border: 1px solid #30f1fd;
+    box-shadow: inset 1px -2px 4px 0px rgba(33, 160, 253, 0.39);
+    box-shadow: inset 0px 0px 4px 0px rgba(32, 160, 253, 0.38);
+    border-radius: 2px;
+  }
+}
+
+
+.el-select .el-input__inner:hover,
+.el-select .el-input__inner:focus {
+  border: 1px solid #30f1fd;
+}
+
+.el-input__inner {
+  border: 1px solid $btnBorderColor;
+}
+
+// select 样式
+.el-select-dropdown__item.hover,
+.el-select-dropdown__item:hover {
+  background: #f6feff;
+  font-size: 13px;
+  color: #666666;
+}
+
+.el-button.is-circle {
+  padding: 8px;
+}
+
+// message 样式
+.el-message {
+    min-width: 200px;
+}
+
+
+// dialog footer的样式修改
+.el-dialog__footer{
+  text-align: center;
+  background-color: #f5f5f5;
+}
+// table滚动条样式
+.el-table__body-wrapper::-webkit-scrollbar{
+  cursor: pointer;
+  width: 12px;
+  height: 12px;
+  background-color: transparent;
+}
+/*定义滑块 内阴影+圆角*/
+.el-table__body-wrapper::-webkit-scrollbar-thumb{
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, .1);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .1);
+  background-color: #f5f5f5;
+}
+
+
+// 解决table固定列无法拖着滑动问题
+.el-table--scrollable-x .el-table__body-wrapper {
+  z-index: 1;
+}
+
+
+.el-select {
+  width: 100%;
+}
+
+// .vue-treeselect 样式
+ .vue-treeselect__control {
+  border-radius: 2px !important;
+  border: 1px solid $btnBorderColor !important;
+  height: 32px !important;
+}
+.value {
+   .vue-treeselect {
+     font-size: 13px !important;
+     width: 200px;
+ }
+}
+
+.vue-treeselect__menu {
+  overflow-x: auto !important;
+}
+.vue-treeselect__label-container {
+ width: auto !important;
+ display: inline-block;
+ vertical-align: middle;
+ white-space: nowrap;
+}
+
+ .vue-treeselect__single-value {
+  font-size: 13px !important;
+}
+ .vue-treeselect__placeholder {
+  color: #c5c2c2 !important;
+}
+ .vue-treeselect__x-container:hover {
+  color: $topMenuActiveColor !important;
+}
+// table上fixed不乱行
+.el-table__fixed {
+  height: 100% !important;
+}
+.el-table__fixed-right {
+  height: 100% !important;
+}
+
+.el-table .cell {
+  font-size: 13px;
+}  
+
+.el-card.is-always-shadow, .el-card.is-hover-shadow:focus, .el-card.is-hover-shadow:hover {
+  box-shadow: none;
+}
+
+// select 箭头位置
+.value {
+  .el-select .el-input .el-select__caret {
+    margin-top: 3px;
+  }
+  .el-select .el-input .el-select__caret.is-reverse {
+    margin-top: -5px;
+  }
+  .el-input__prefix,.el-input__suffix {
+    .el-input__icon {
+      margin-top: -3px;
+    }
+  }
+ }
+ 
+
+.el-input-number.is-without-controls .el-input__inner {
+  text-align: left;
+    // height: 32px;
+}
+
+// el-transfer样式
+.el-transfer-panel .el-transfer-panel__header .el-checkbox .el-checkbox__label {
+  font-size: 13px;
+}
+
+// 解决message多个弹窗出现问题
+.el-message { top: 20px !important; } .el-message:not(:last-child){ visibility: hidden; }
+
+
+.vue-treeselect__menu::-webkit-scrollbar{
+  width: 7px;
+  height: 7px;
+  background-color: transparent;
+}
+/*定义滑块 内阴影+圆角*/
+.vue-treeselect__menu::-webkit-scrollbar-thumb{
+  border-radius: 10px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, .1);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .1);
+  background-color: #f5f5f5;
+}
+
+.vue-treeselect__placeholder {
+  font-size: 13px;
+  font-weight: 300;
+}
+
+// 解决vue-treeselect 在el-form里高度超出问题
+.orgList {
+  .el-form-item__content {
+    line-height: 32px;
+  }
+}
+
+.el-date-editor .el-range-separator {
+  color: #999;
+}
+
+.el-input input::-webkit-input-placeholder {
+  font-size: 13px;
+}
+
+.el-input input::-moz-input-placeholder {
+  font-size: 13px;
+}
+.el-input input::-ms-input-placeholder {
+  font-size: 13px;
+}
+
+.el-tooltip__popper{
+  max-width: 500px !important;
+}
+
+.el-tag.el-tag--info .el-tag__close {
+  color: #fff;
+}
+
+.el-date-editor.el-input, .el-date-editor.el-input__inner {
+  width: 100%;
+}
+
+.el-input-number {
+  width: 100%;
+}
+
+.detailDialog {
+  .el-dialog__body {
+    background-color: #fff;
+    min-height: 300px;
+  }
+}
+

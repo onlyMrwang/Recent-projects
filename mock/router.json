@@ -1,0 +1,567 @@
+{"routers" : [
+    {
+      "name": "System",
+      "path": "/system",
+      "hidden": false,
+      "redirect": "noRedirect",
+      "component": "Layout",
+      "alwaysShow": true,
+      "meta": {
+        "title": "系统管理",
+        "icon": null,
+        "noCache": false
+      },
+      "kind": "5",
+      "children": [
+        {
+          "name": "Userperm",
+          "path": "/userperm",
+          "hidden": false,
+          "redirect": "noRedirect",
+          "component": "ParentView",
+          "alwaysShow": true,
+          "meta": {
+            "title": "用户权限",
+            "icon": null,
+            "noCache": false
+          },
+          "kind": "5",
+          "children": [
+            {
+              "name": "User",
+              "path": "/vue/system/user",
+              "hidden": false,
+              "component": "system/user/index",
+              "meta": {
+                "title": "用户管理",
+                "icon": "user",
+                "noCache": false
+              },
+              "kind": "0"
+            },
+            {
+              "name": "Role",
+              "path": "/vue/system/role",
+              "hidden": false,
+              "component": "system/role/index",
+              "meta": {
+                "title": "角色管理",
+                "icon": "role",
+                "noCache": false
+              },
+              "kind": "0"
+            },
+            {
+              "name": "Menu",
+              "path": "/vue/system/menu",
+              "hidden": false,
+              "component": "system/menu/index",
+              "meta": {
+                "title": "菜单管理",
+                "icon": "menu",
+                "noCache": false
+              },
+              "kind": "0"
+            },
+            {
+              "name": "Dept",
+              "path": "/vue/system/dept",
+              "hidden": false,
+              "component": "system/dept/index",
+              "meta": {
+                "title": "部门管理",
+                "icon": "department",
+                "noCache": false
+              },
+              "kind": "0"
+            }
+          ]
+        },
+        {
+          "name": "Basemanage",
+          "path": "/basemanage",
+          "hidden": false,
+          "redirect": "noRedirect",
+          "component": "ParentView",
+          "alwaysShow": true,
+          "meta": {
+            "title": "基础管理",
+            "icon": null,
+            "noCache": false
+          },
+          "kind": "5",
+          "children": [
+            {
+              "name": "Dict",
+              "path": "/vue/system/dict",
+              "hidden": false,
+              "component": "system/dict/index",
+              "meta": {
+                "title": "字典管理",
+                "icon": "dict",
+                "noCache": false
+              },
+              "kind": "0"
+            },
+            {
+              "name": "Enterprise",
+              "path": "/vue/system/enterprise",
+              "hidden": false,
+              "component": "system/enterprise/index",
+              "meta": {
+                "title": "企业配置",
+                "icon": "enterprise",
+                "noCache": false
+              },
+              "kind": "0"
+            },
+            {
+              "name": "Conf",
+              "path": "/vue/system/config",
+              "hidden": false,
+              "component": "system/config/index",
+              "meta": {
+                "title": "系统配置",
+                "icon": "sysconfig",
+                "noCache": false
+              },
+              "kind": "0"
+            },
+            {
+              "name": "Image",
+              "path": "/vue/system/image",
+              "hidden": false,
+              "component": "system/image/index",
+              "meta": {
+                "title": "图片管理",
+                "icon": "image-mng",
+                "noCache": false
+              },
+              "kind": "0"
+            },
+            {
+              "name": "Notice",
+              "path": "/vue/system/notice",
+              "hidden": false,
+              "component": "system/notice/index",
+              "meta": {
+                "title": "通知公告",
+                "icon": "message",
+                "noCache": false
+              },
+              "kind": "0"
+            },
+            {
+              "name": "Dictroute",
+              "path": "/vue/system/dataroute",
+              "hidden": false,
+              "component": "system/dataroute/index",
+              "meta": {
+                "title": "字典归属",
+                "icon": "dataroute",
+                "noCache": false
+              },
+              "kind": "0"
+            }
+          ]
+        },
+        {
+          "name": "Log",
+          "path": "/log",
+          "hidden": false,
+          "redirect": "noRedirect",
+          "component": "ParentView",
+          "alwaysShow": true,
+          "meta": {
+            "title": "日志管理",
+            "icon": null,
+            "noCache": false
+          },
+          "kind": "5",
+          "children": [
+            {
+              "name": "Operlog",
+              "path": "/vue/monitor/operlog",
+              "hidden": false,
+              "component": "monitor/operlog/index",
+              "meta": {
+                "title": "操作日志",
+                "icon": "operlog",
+                "noCache": false
+              },
+              "kind": "0"
+            },
+            {
+              "name": "Logininfor",
+              "path": "/vue/monitor/logininfor",
+              "hidden": false,
+              "component": "monitor/logininfor/index",
+              "meta": {
+                "title": "登录日志",
+                "icon": "logininfor",
+                "noCache": false
+              },
+              "kind": "0"
+            }
+          ]
+        },
+        {
+          "name": "Monitor",
+          "path": "/monitor",
+          "hidden": false,
+          "redirect": "noRedirect",
+          "component": "ParentView",
+          "alwaysShow": true,
+          "meta": {
+            "title": "系统监控",
+            "icon": null,
+            "noCache": false
+          },
+          "kind": "5",
+          "children": [
+            {
+              "name": "Online",
+              "path": "/vue/monitor/online",
+              "hidden": false,
+              "component": "monitor/online/index",
+              "meta": {
+                "title": "在线用户",
+                "icon": "online",
+                "noCache": false
+              },
+              "kind": "0"
+            },
+            {
+              "name": "Srvmonitor",
+              "path": "/vue/monitor/server",
+              "hidden": false,
+              "component": "monitor/server/index",
+              "meta": {
+                "title": "服务监控",
+                "icon": "servicemonitor",
+                "noCache": false
+              },
+              "kind": "0"
+            },
+            {
+              "name": "Redismonitor",
+              "path": "/vue/monitor/cache",
+              "hidden": false,
+              "component": "monitor/cache/index",
+              "meta": {
+                "title": "缓存监控",
+                "icon": "redismonitor",
+                "noCache": false
+              },
+              "kind": "0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/vue/user/profile",
+      "hidden": true,
+      "component": "Layout",
+      "meta": {
+        "title": "个人信息",
+        "icon": null,
+        "noCache": false
+      },
+      "kind": "0",
+      "children": [
+        {
+          "name": "profile",
+          "path": "/vue/user/profile",
+          "hidden": false,
+          "component": "user/profile/index",
+          "meta": {
+            "title": "个人信息",
+            "icon": null,
+            "noCache": false
+          }
+        }
+      ]
+    },
+    {
+      "path": "/vue/index",
+      "hidden": true,
+      "component": "Layout",
+      "meta": {
+        "title": "首页",
+        "icon": null,
+        "noCache": false
+      },
+      "kind": "0",
+      "children": [
+        {
+          "name": "index",
+          "path": "/vue/index",
+          "hidden": false,
+          "component": "/index",
+          "meta": {
+            "title": "首页",
+            "icon": null,
+            "noCache": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "Asset",
+      "path": "/asset",
+      "hidden": false,
+      "redirect": "noRedirect",
+      "component": "Layout",
+      "alwaysShow": true,
+      "meta": {
+        "title": "资产中心",
+        "icon": null,
+        "noCache": false
+      },
+      "kind": "5",
+      "children": [
+        {
+          "name": "Charggroupinfo",
+          "path": "/asset/chargGroupInfo",
+          "hidden": false,
+          "component": "asset/chargGroupInfo/index",
+          "meta": {
+            "title": "充电网点管理",
+            "icon": null,
+            "noCache": false
+          },
+          "kind": "0"
+        },
+        {
+          "name": "Charggroup",
+          "path": "/asset/chargGroup",
+          "hidden": false,
+          "component": "asset/chargGroup/index",
+          "meta": {
+            "title": "充电设备管理",
+            "icon": null,
+            "noCache": false
+          },
+          "kind": "0"
+        },
+        {
+          "name": "Chargingcard",
+          "path": "/asset/chargeCard",
+          "hidden": false,
+          "component": "asset/chargeCard/index",
+          "meta": {
+            "title": "充电卡管理",
+            "icon": null,
+            "noCache": false
+          },
+          "kind": "0"
+        },
+        {
+          "name": "Manufacturer",
+          "path": "/asset/manufacturer",
+          "hidden": false,
+          "component": "asset/manufacturer/index",
+          "meta": {
+            "title": "厂商管理",
+            "icon": null,
+            "noCache": false
+          },
+          "kind": "0"
+        },
+        {
+          "name": "Vehiclefiles",
+          "path": "/asset/vehicleFiles",
+          "hidden": false,
+          "component": "asset/vehicleFiles/index",
+          "meta": {
+            "title": "车辆档案管理",
+            "icon": null,
+            "noCache": false
+          },
+          "kind": "0"
+        },
+        {
+          "name": "Chargingrobot",
+          "path": "/asset/chargingRobot",
+          "hidden": false,
+          "component": "asset/chargingRobot/index",
+          "meta": {
+            "title": "充电机器人管理",
+            "icon": null,
+            "noCache": false
+          },
+          "kind": "0"
+        },
+        {
+          "name": "Employeeinfo",
+          "path": "/asset/employeeInfo",
+          "hidden": false,
+          "component": "asset/employeeInfo/index",
+          "meta": {
+            "title": "职工信息管理",
+            "icon": null,
+            "noCache": false
+          },
+          "kind": "0"
+        }
+      ]
+    },
+    {
+      "name": "Financial",
+      "path": "/financial",
+      "hidden": false,
+      "redirect": "noRedirect",
+      "component": "Layout",
+      "alwaysShow": true,
+      "meta": {
+        "title": "财务中心",
+        "icon": null,
+        "noCache": false
+      },
+      "kind": "5",
+      "children": [
+        {
+          "name": "Stationcharges",
+          "path": "/financial/stationCharges",
+          "hidden": false,
+          "component": "financial/stationCharges/index",
+          "meta": {
+            "title": "场站资费配置",
+            "icon": null,
+            "noCache": false
+          },
+          "kind": "0"
+        },
+        {
+          "name": "Mechanismstation",
+          "path": "/financial/mechanismStation",
+          "hidden": false,
+          "component": "financial/mechanismStation/index",
+          "meta": {
+            "title": "机构场站资费配置",
+            "icon": null,
+            "noCache": false
+          },
+          "kind": "0"
+        },
+        {
+          "name": "Billinquiry",
+          "path": "/financial/billInquiry",
+          "hidden": false,
+          "component": "financial/billInquiry/index",
+          "meta": {
+            "title": "账单查询",
+            "icon": null,
+            "noCache": false
+          },
+          "kind": "0"
+        },
+        {
+          "name": "Blacklist",
+          "path": "/financial/blackList",
+          "hidden": false,
+          "component": "financial/blackList/index",
+          "meta": {
+            "title": "黑名单管理",
+            "icon": null,
+            "noCache": false
+          },
+          "kind": "0"
+        },
+        {
+          "name": "Accountcenter",
+          "path": "/accountcenter",
+          "hidden": false,
+          "redirect": "noRedirect",
+          "component": "ParentView",
+          "alwaysShow": true,
+          "meta": {
+            "title": "账户中心",
+            "icon": null,
+            "noCache": false
+          },
+          "kind": "5",
+          "children": [
+            {
+              "name": "Accountmana",
+              "path": "/financial/accountMana",
+              "hidden": false,
+              "component": "financial/accountMana/index",
+              "meta": {
+                "title": "账户管理",
+                "icon": null,
+                "noCache": false
+              },
+              "kind": "0"
+            },
+            {
+              "name": "Accountopening",
+              "path": "/financial/accountOpening",
+              "hidden": false,
+              "component": "financial/accountOpening/index",
+              "meta": {
+                "title": "账户开卡",
+                "icon": null,
+                "noCache": false
+              },
+              "kind": "0"
+            }
+          ]
+        },
+        {
+          "name": "Recharge",
+          "path": "/recharge",
+          "hidden": false,
+          "redirect": "noRedirect",
+          "component": "ParentView",
+          "alwaysShow": true,
+          "meta": {
+            "title": "充值管理",
+            "icon": null,
+            "noCache": false
+          },
+          "kind": "5",
+          "children": [
+            {
+              "name": "Rechargequota",
+              "path": "/financial/rechargeQuota",
+              "hidden": false,
+              "component": "financial/rechargeQuota/index",
+              "meta": {
+                "title": "账户充值(配额)",
+                "icon": null,
+                "noCache": false
+              },
+              "kind": "0"
+            },
+            {
+              "name": "Rechargesharing",
+              "path": "/financial/rechargeSharing",
+              "hidden": false,
+              "component": "financial/rechargeSharing/index",
+              "meta": {
+                "title": "账户充值(共享)",
+                "icon": null,
+                "noCache": false
+              },
+              "kind": "0"
+            },
+            {
+              "name": "Rechargeprivate",
+              "path": "/financial/rechargePrivate",
+              "hidden": false,
+              "component": "financial/rechargePrivate/index",
+              "meta": {
+                "title": "账户充值(私人)",
+                "icon": null,
+                "noCache": false
+              },
+              "kind": "0"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

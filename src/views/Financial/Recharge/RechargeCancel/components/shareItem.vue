@@ -1,0 +1,205 @@
+<template>
+  <div class="cancelBox">
+        <el-table
+            :data="tableData"
+            style="width: 100%"
+             :header-cell-style="tableHeaderStyle"
+             border
+             max-height="530"
+          >
+           <el-table-column
+              prop="billCode"
+              label="流水号"
+              align="center"
+              width="200"
+              show-overflow-tooltip
+            >
+            </el-table-column>
+           
+            <el-table-column
+              prop="arriveBefore"
+              label="充值前金额(元)"
+              align="center"
+            >
+             <template slot-scope="scope">
+              {{scope.row.arriveBefore ? scope.row.arriveBefore.toFixed(6) : 0}}
+            </template>
+            </el-table-column> 
+            <el-table-column
+              prop="arriveMoney"
+              label="充值金额(元)"
+              align="center"
+            >
+             <template slot-scope="scope">
+              {{scope.row.arriveMoney ? scope.row.arriveMoney.toFixed(6) : 0}}
+            </template>
+            </el-table-column>
+            <el-table-column
+              prop="payMethod"
+              label="付款方式"
+              align="center"
+              width="80"
+            >
+             <template slot-scope="scope">
+                 {{payMethodObj[scope.row.payMethod]}}
+             </template>
+            </el-table-column>
+             <el-table-column
+              prop="opeUser"
+              label="操作人"
+              align="center"
+            >
+            </el-table-column>
+            <el-table-column
+              prop="billStatus"
+              label="状态"
+              align="center"
+              width="100"
+            >
+            <template slot-scope="scope">
+              {{scope.row.billStatus === 1 ? '已撤销' : '待撤销'}}
+            </template>
+            </el-table-column>
+            <el-table-column
+              prop="createTime"
+              label="操作时间"
+              align="center"
+              width="170"
+            >
+            </el-table-column>
+              <el-table-column
+              prop="x"
+              label="操作"
+              align="center"
+              width="80"
+            >
+            <template slot-scope="scope">
+                <el-link type="primary" :underline="false" @click="toCancel(scope.row)" :disabled="scope.row.billStatus === 1">撤销</el-link>
+            </template>
+            </el-table-column>
+        </el-table>
+          <div class="pagination" v-if="tableData.length > 0">
+          <el-pagination
+            background
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="searchConf.pageNo"
+            :page-sizes="[10, 20, 50, 100]"
+            :page-size="searchConf.pageSize"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="total">
+          </el-pagination>
+        </div>
+
+  <el-dialog
+  title="提示"
+  v-dialogDrag
+  :visible.sync="showCharge"
+  width="30%"
+  :before-close="handleClose">
+ <div style="text-align: center;margin-top: 20px;">账户当前金额不足，无法进行撤销操作，请进行<el-link type="primary" :underline="false" @click="toCharge">充值</el-link>!</div>
+  <span slot="footer" class="dialog-footer">
+  
+  </span>
+</el-dialog>
+
+  </div>
+</template>
+
+<script>
+import { getRechargeList, toCancelRecharge } from '@/api/financial/account'
+export default {
+    props: {
+        accountInfo: {
+            type: Object,
+            default: function() {
+                return null
+            }
+        },
+        searchInfo: {
+           type: Object,
+            default: function() {
+                return null
+            }
+        }
+    },
+    data() {
+        return {
+            tableData: [],
+            payMethodObj: {
+                0: '虚拟'
+            },
+            total: 0,
+            searchConf: {
+                pageNo: 1,
+                pageSize: 10,
+            },
+            showCharge: false,
+        }
+    },
+    created() {
+        if(this.accountInfo) {
+            this.fetchRechargeList()
+        }
+    },
+    methods: {
+        async fetchRechargeList() {
+            this.searchConf.orgId = this.accountInfo.orgId
+            this.searchConf.accType = this.accountInfo.accType
+            this.searchConf = Object.assign(this.searchInfo, this.searchConf)
+            const rsp = await getRechargeList(this.searchConf)
+            if(rsp.code === 200) {
+                this.tableData = rsp.data.list
+                this.total = rsp.data.total
+            }
+        },
+        toCancel(row) {
+          this.$confirm('是否确认撤销充值?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning',
+            center: true
+            }).then(async () => {
+            const rsp = await toCancelRecharge({id: row.id})
+             if(rsp.code === 200) {
+                  this.$message({
+                    type: 'success',
+                    message: '撤销成功'
+                })
+                this.fetchRechargeList()
+                this.$emit('fetchInfo')
+             }else if(rsp.code === 60001) {
+               this.showCharge = true
+             }
+            })
+        },
+        toCharge() {
+            this.$store.commit('settings/changeSiderMenuIndex', '/airweb/recharge/rechargeTran')
+            this.$router.push('/airweb/recharge/rechargeTran') 
+        },
+        handleClose() {
+          this.showCharge = false
+        },
+        handleCurrentChange(page) {
+            this.searchConf.pageNo = page
+            this.fetchRechargeList()
+        },
+        handleSizeChange(pageSize) {
+          this.searchConf.pageNo = 1
+          this.searchConf.pageSize = pageSize
+          this.fetchRechargeList()
+        }
+    }
+}
+</script>
+
+<style lang="scss" scoped>
+.cancelBox {
+    padding: 0 10px;
+     .pagination {
+        margin: 10px 0;
+        display: flex;
+        justify-content: flex-end;
+      }
+}
+</style>
